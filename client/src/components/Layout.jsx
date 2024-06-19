@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import NavBar from "./ui/NavBar";
 
-export default function Layout() {
+export default function Layout({user, logoutHandler}) {
   return (
-    <div>Layout</div>
-  )
+    <Container>
+      <NavBar user={user} logoutHandler={logoutHandler}/>
+      <Outlet />
+    </Container>
+  );
 }

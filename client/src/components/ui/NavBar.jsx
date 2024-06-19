@@ -1,7 +1,42 @@
-import React from 'react'
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/esm/Button";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { NavLink } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({ user, logoutHandler }) {
   return (
-    <div>NavBar</div>
-  )
+    <Navbar bg="dark" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Nav className="me-auto">
+          <NavLink to="/" className="nav-link">
+            Home
+          </NavLink>
+          <Nav.Link href="#features">Features</Nav.Link>
+          <Nav.Link href="#pricing">Pricing</Nav.Link>
+        </Nav>
+        <Nav>
+          <NavLink to="/auth/signin" className="nav-link">
+            Login
+          </NavLink>
+          <NavLink to="/auth/signup" className="nav-link">
+            Sign Up
+          </NavLink>
+          <span className="nav-link">|</span>
+          <span className="nav-link">
+            Привет {user.data ? user.data.name : "гость"}
+          </span>
+          {user.data && (
+            <span className="nav-link">
+              <Button onClick={logoutHandler} variant="outline-danger" size="sm">
+                Logout
+              </Button>
+            </span>
+          )}
+        </Nav>
+      </Container>
+    </Navbar>
+  );
 }
