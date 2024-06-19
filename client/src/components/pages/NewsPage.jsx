@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
 import NewsWrapper from "../ui/NewsWrapper";
 
 export default function NewsPage() {
+  const [cards, setCards] = useState([]);
 
   const handleMore = (id) => {};
 
@@ -13,7 +13,7 @@ export default function NewsPage() {
     <>
       <div>NewsPage</div>
       <Row>
-        <NewsWrapper handleMore={handleMore} handleFavorite={handleFavorite} />
+        <NewsWrapper cards={cards} handleMore={handleMore} handleFavorite={handleFavorite} />
       </Row>
     </>
   );

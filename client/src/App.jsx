@@ -6,6 +6,7 @@ import SignUpPage from "./components/pages/SignUpPage";
 import SignInPage from "./components/pages/SignInPage";
 import axiosInstance from "./components/api/axiosInstance";
 import { setAccessToken } from "./components/api/axiosInstance";
+import NewsPage from "./components/pages/NewsPage"
 
 function App() {
   const [user, setUser] = useState({ status: "guest", data: null });
@@ -58,6 +59,10 @@ function App() {
         {
           path: "/",
           element: <MainPage />,
+        },
+        {
+          path: "/news",
+          element: <NewsPage />,
         },
         {
           path: "/auth/signup",
