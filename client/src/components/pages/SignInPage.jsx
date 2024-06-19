@@ -4,20 +4,12 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function SignUpPage({signUpHandler}) {
+export default function SignInPage({ signInHandler }) {
   return (
     <Row>
       <Col md={{ span: 6, offset: 3 }} className="mt-5">
-      <h3 className="text-center">Регистрация</h3>
-        <Form onSubmit={signUpHandler}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Имя</Form.Label>
-            <Form.Control
-              name="name"
-              type="text"
-              placeholder="Введите имя"
-            />
-          </Form.Group>
+        <h3 className="text-center">Вход</h3>
+        <Form onSubmit={signInHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Почта</Form.Label>
             <Form.Control name="email" type="email" placeholder="Введите почту" />
@@ -31,7 +23,7 @@ export default function SignUpPage({signUpHandler}) {
             />
           </Form.Group>
           <Button variant="success" type="submit">
-            Зарегистрироваться
+            Войти
           </Button>
         </Form>
       </Col>
