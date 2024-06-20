@@ -4,7 +4,7 @@ import NewsWrapper from '../ui/NewsWrapper';
 import axiosInstance from '../api/axiosInstance';
 import Filter from '../ui/Flter';
 
-export default function NewsPage({user}) {
+export default function NewsPage({ user }) {
   const [cards, setCards] = useState([]);
   const [favoriteNewsIds, setFavoriteNewsIds] = useState(new Set());
   const [keyword, setKeyword] = useState('');
@@ -19,36 +19,36 @@ export default function NewsPage({user}) {
         console.error('Error fetching news:', error);
       }
     };
-
     fetchNews(); // Вызываем функцию загрузки новостей при загрузке компонента
-    axiosInstance.get("/account")
+  }, []);
+
+  useEffect(() => {
+    axiosInstance.get('/news').then((res) => setCards(res.data));
+    axiosInstance
+      .get('/account')
       .then((res) => {
-        const favoriteIds = new Set(res.data.map(news => news.id));
+        const favoriteIds = new Set(res.data.map((news) => news.id));
         setFavoriteNewsIds(favoriteIds);
       })
-      .catch((error) => console.error("Error fetching favorite news", error));
+      .catch((error) => console.error('Error fetching favorite news', error));
   }, []);
 
   const handleFavorite = async (id) => {
     try {
-      const response = await axiosInstance.post("/account", {
+      const response = await axiosInstance.post('/account', {
         userId: user.id,
-        newsId: id
+        newsId: id,
       });
       if (response.status === 201) {
         setFavoriteNewsIds((prevSet) => new Set(prevSet).add(id));
-        console.log("Новость добавлена в избранное");
+        console.log('Новость добавлена в избранное');
       } else {
-        console.error("Ошибка при добавлении новости в избранное");
+        console.error('Ошибка при добавлении новости в избранное');
       }
     } catch (error) {
-      console.error("Ошибка при добавлении новости в избранное:", error);
+      console.error('Ошибка при добавлении новости в избранное:', error);
     }
   };
-  
-  const handleMore = (id) => {};
-
-  const handleFavorite = (id) => {};
 
   const handleFilter = async (e) => {
     e.preventDefault();
@@ -77,8 +77,8 @@ export default function NewsPage({user}) {
       <Row>
         <NewsWrapper
           cards={cards}
-         
-          handleFavorite={handleFavorite} favoriteNewsIds={favoriteNewsIds}
+          handleFavorite={handleFavorite}
+          favoriteNewsIds={favoriteNewsIds}
         />
       </Row>
     </>
