@@ -31,7 +31,7 @@ export default function NavBar({ user, logoutHandler }) {
               <NavLink to="/news" className="nav-link">
                 Новости
               </NavLink>
-              <NavLink to="/favorites" className="nav-link">
+              <NavLink to="/account" className="nav-link">
                 Избранное
               </NavLink>
             </>

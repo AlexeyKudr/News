@@ -31,6 +31,15 @@ module.exports = {
         updatedAt: new Date(),
       },
     ]);
+
+    await queryInterface.bulkInsert('UserNews', [
+      {
+        userId: 1,
+        newsId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
   async down(queryInterface, Sequelize) {

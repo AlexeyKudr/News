@@ -1,6 +1,6 @@
-const newsRouter = require('express').Router();
+const express = require('express');
 const { Op } = require('sequelize');
-const { News, User } = require('../../db/models');
+const { News } = require('../../db/models');
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
 
 newsRouter.route('/').get(async (req, res) => {
@@ -43,4 +43,21 @@ newsRouter.post('/', async (req, res) => {
   }
 });
 
+  newsRouter.route('/:id').delete(verifyAccessToken, async (req, res) => {
+    const { id } = req.params;
+    if (Number.isNaN(+id)) {
+      return res.status(400).json({ message: 'id must be a number' });
+    }
+    try {
+      const post = await News.findByPk(req.params.id);
+      await post.destroy();
+      res.json({ message: 'Post deleted' });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+
 module.exports = newsRouter;
+

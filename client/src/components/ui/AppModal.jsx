@@ -7,13 +7,21 @@ export default function AppModal({ title, children, buttonText }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const modalCustomStyles = `
+    .modal-90w {
+      max-width: 60%;
+      width: auto;
+    }
+  `;
+
   return (
     <>
-      <Button variant="primary" className="m-2" onClick={handleShow}>
+      <Button variant="primary" className="mb-2" onClick={handleShow}>
         {buttonText}
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <style>{modalCustomStyles}</style>
+      <Modal show={show} onHide={handleClose} dialogClassName="modal-90w">
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
@@ -22,3 +30,4 @@ export default function AppModal({ title, children, buttonText }) {
     </>
   );
 }
+

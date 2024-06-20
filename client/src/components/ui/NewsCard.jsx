@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import AppModal from "./AppModal";
 
-export default function NewsCard({ card, handleMore, handleFavorite }) {
+export default function NewsCard({ card, handleFavorite, isFavorite }) {
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
@@ -17,8 +17,9 @@ export default function NewsCard({ card, handleMore, handleFavorite }) {
             <Card.Text>{card.description}</Card.Text>
           </div>
         </AppModal>
-        {/* <Button variant="primary" onClick={() => handleMore(card.id)}>Подробнее</Button> */}
-        <Button variant="primary" onClick={() => handleFavorite(card.id)}>Добавить в избранное</Button>
+        {!isFavorite && (
+          <Button variant="primary" onClick={() => handleFavorite(card.id)}>Добавить в избранное</Button>
+        )}
       </Card.Body>
     </Card>
   );
