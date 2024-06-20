@@ -9,7 +9,7 @@ export default function AppModal({ title, children, buttonText }) {
 
   return (
     <>
-      <Button variant="primary" className="m-2" onClick={handleShow}>
+      <Button variant="primary" className="mb-2" onClick={handleShow}>
         {buttonText}
       </Button>
 
