@@ -5,14 +5,17 @@ import axiosInstance from "../api/axiosInstance";
 
 export default function NewsPage({user}) {
   const [cards, setCards] = useState([]);
+  const [favoriteNewsIds, setFavoriteNewsIds] = useState(new Set());
 
   useEffect(() => {
     axiosInstance.get("/news").then((res) => setCards(res.data));
+    axiosInstance.get("/account")
+      .then((res) => {
+        const favoriteIds = new Set(res.data.map(news => news.id));
+        setFavoriteNewsIds(favoriteIds);
+      })
+      .catch((error) => console.error("Error fetching favorite news", error));
   }, []);
-
-  const handleMore = (id) => {
-    
-  };
 
   const handleFavorite = async (id) => {
     try {
@@ -21,6 +24,7 @@ export default function NewsPage({user}) {
         newsId: id
       });
       if (response.status === 201) {
+        setFavoriteNewsIds((prevSet) => new Set(prevSet).add(id));
         console.log("Новость добавлена в избранное");
       } else {
         console.error("Ошибка при добавлении новости в избранное");
@@ -34,7 +38,7 @@ export default function NewsPage({user}) {
     <>
       <div>NewsPage</div>
       <Row>
-        <NewsWrapper cards={cards} handleMore={handleMore} handleFavorite={handleFavorite} />
+        <NewsWrapper cards={cards} handleFavorite={handleFavorite} favoriteNewsIds={favoriteNewsIds} />
       </Row>
     </>
   );
