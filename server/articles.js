@@ -36,9 +36,10 @@ const getArticles = async () => {
     }
   }
 
-  console.log(articles);
-
   await browser.close();
+
+  return articles; // Ensure articles are returned
 };
 
 module.exports = getArticles;
+
