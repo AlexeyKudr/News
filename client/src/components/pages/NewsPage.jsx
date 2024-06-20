@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/esm/Row";
 import NewsWrapper from "../ui/NewsWrapper";
+import axiosInstance from "../api/axiosInstance";
 
 export default function NewsPage() {
   const [cards, setCards] = useState([]);
 
-  const handleMore = (id) => {};
+  useEffect(() => {
+    axiosInstance.get("/news").then((res) => setCards(res.data));
+  }, []);
+
+  const handleMore = (id) => {
+    
+  };
 
   const handleFavorite = (id) => {};
 
