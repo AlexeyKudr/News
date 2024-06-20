@@ -6,7 +6,8 @@ import SignUpPage from "./components/pages/SignUpPage";
 import SignInPage from "./components/pages/SignInPage";
 import axiosInstance from "./components/api/axiosInstance";
 import { setAccessToken } from "./components/api/axiosInstance";
-import NewsPage from "./components/pages/NewsPage"
+import NewsPage from "./components/pages/NewsPage";
+import Account from "./components/pages/Account";
 
 function App() {
   const [user, setUser] = useState({ status: "guest", data: null });
@@ -23,11 +24,11 @@ function App() {
       });
   }, []);
 
-
   const logoutHandler = () => {
-    axiosInstance.get('/auth/logout')
-    .then(() => setUser({ status: 'guest', data: null }))
-  }
+    axiosInstance
+      .get("/auth/logout")
+      .then(() => setUser({ status: "guest", data: null }));
+  };
 
   const signUpHandler = (e) => {
     e.preventDefault();
@@ -54,7 +55,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout user={user} logoutHandler={logoutHandler}/>,
+      element: <Layout user={user} logoutHandler={logoutHandler} />,
       children: [
         {
           path: "/",
@@ -62,7 +63,11 @@ function App() {
         },
         {
           path: "/news",
-          element: <NewsPage />,
+          element: <NewsPage user={user} />,
+        },
+        {
+          path: "/account",
+          element: <Account user={user} />,
         },
         {
           path: "/auth/signup",

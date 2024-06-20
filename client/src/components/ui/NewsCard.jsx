@@ -17,7 +17,7 @@ export default function NewsCard({ card, handleMore, handleFavorite }) {
             <Card.Text>{card.description}</Card.Text>
           </div>
         </AppModal>
-        {/* <Button variant="primary" onClick={() => handleMore(card.id)}>Подробнее</Button> */}
+        <Button variant="primary" onClick={() => handleMore(card.id)}>Подробнее</Button>
         <Button variant="primary" onClick={() => handleFavorite(card.id)}>Добавить в избранное</Button>
       </Card.Body>
     </Card>
