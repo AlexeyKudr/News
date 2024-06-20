@@ -1,5 +1,5 @@
 const express = require('express');
-const { News, User } = require('../../db/models');
+const { News, User, UserNews } = require('../../db/models');
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
 
 const accountRouter = express.Router();
@@ -31,7 +31,7 @@ accountRouter.route('/').get(verifyAccessToken, async (req, res) => {
       });
 
       if (created) {
-        res.status(200).send('News added to user account');
+        res.status(201).send('News added to user account');
       } else {
         res.status(200).send('News already exists in user account');
       }
