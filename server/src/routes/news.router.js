@@ -1,10 +1,11 @@
-const newsRouter = require('express').Router();
-const { News, User } = require('../../db/models');
+const express = require('express');
+const { News } = require('../../db/models');
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
 
-newsRouter
-  .route('/')
-  .get(async (req, res) => {
+const newsRouter = express.Router();
+
+newsRouter.route('/')
+  .get(verifyAccessToken, async (req, res) => {
     try {
       const posts = await News.findAll();
       res.json(posts);
@@ -12,5 +13,6 @@ newsRouter
       res.status(500).send('Internal server error');
     }
   })
+  
 
 module.exports = newsRouter;
