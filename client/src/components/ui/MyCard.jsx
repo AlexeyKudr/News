@@ -1,8 +1,9 @@
 import React from 'react';
 import Card from "react-bootstrap/Card";
 import AppModal from "./AppModal";
+import Button from "react-bootstrap/esm/Button";
 
-export default function MyCard({card}) {
+export default function MyCard({card, handleDelete}) {
     return (
         <Card style={{ width: "18rem" }}>
           <Card.Body>
@@ -16,6 +17,13 @@ export default function MyCard({card}) {
                 <Card.Text>{card.description}</Card.Text>
               </div>
             </AppModal>
+            <Button
+                onClick={() => handleDelete(card.id)}
+                variant="outline-danger"
+                className="mb-2"
+              >
+                Удалить
+              </Button>
           </Card.Body>
         </Card>
       );
