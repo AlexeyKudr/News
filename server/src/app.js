@@ -5,6 +5,7 @@ const cors = require('cors');
 // const postRouter = require('./routes/post.router'); Оставил для вас если надо будет удалите
 const authRouter = require('./routes/auth.router');
 const tokenRouter = require('./routes/token.router');
+const newsRouter = require('./routes/news.router')
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/api/posts', postRouter); Оставил для вас если надо будет удалите
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokenRouter);
+app.use('/api/news', newsRouter)
 
 module.exports = app;
