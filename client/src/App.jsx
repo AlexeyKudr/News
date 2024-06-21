@@ -38,6 +38,18 @@ function App() {
           path: "/",
           element: <MainPage />,
         },
+        // {
+        //   path: "*",
+        //   element: (
+        //     <ProtectedRouter
+        //       isAllowd={user.status === "guest"}
+        //       redirect="/"
+        //     >
+        //       element: <ErrorPage />,
+        //     </ProtectedRouter>
+        //   ),
+        // },
+
         {
           path: "*",
           element: <ErrorPage />,

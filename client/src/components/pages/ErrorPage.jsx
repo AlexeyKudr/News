@@ -9,7 +9,7 @@ export default function ErrorPage() {
           <h1>404</h1>
           <h2>Страница не найдена</h2>
           <p>К сожалению, запрашиваемая вами страница не существует.</p>
-          <Button as={NavLink} to="/" variant="primary">
+          <Button as={NavLink} to="/news" variant="primary">
             Вернуться на главную
           </Button>
         </Container>

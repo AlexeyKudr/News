@@ -23,22 +23,32 @@ export default function NavBar({ user, setUser }) {
   const logoutHandler = () => {
     axiosInstance
       .get("/auth/logout")
-      .then(() =>
-         setUser({ status: "guest", data: null }))
-      navigate("/", { replace: true });
+      .then(() => setUser({ status: "guest", data: null }));
+    navigate("/", { replace: true });
   };
-
 
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
         {user.data ? (
           <Navbar.Brand href="/news" onClick={handleLogoClick}>
-            НП
+            <img
+              src="./../../public/logo.png"
+              width="auto"
+              height="50"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
           </Navbar.Brand>
         ) : (
           <Navbar.Brand href="/" onClick={handleLogoClick}>
-            НП
+            <img
+              src="./../../public/logo.png"
+              width="auto"
+              height="50"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
           </Navbar.Brand>
         )}
         <Nav className="me-auto">
@@ -92,9 +102,7 @@ export default function NavBar({ user, setUser }) {
                 </>
               )}
               {user.data && (
-                <Dropdown.Item onClick={logoutHandler}>
-                  Выйти
-                </Dropdown.Item>
+                <Dropdown.Item onClick={logoutHandler}>Выйти</Dropdown.Item>
               )}
             </Dropdown.Menu>
           </Dropdown>
