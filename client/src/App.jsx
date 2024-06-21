@@ -1,92 +1,72 @@
-import { useState, useEffect } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "./components/Layout";
-import MainPage from "./components/pages/MainPage";
-import SignUpPage from "./components/pages/SignUpPage";
-import SignInPage from "./components/pages/SignInPage";
-import axiosInstance from "./components/api/axiosInstance";
-import { setAccessToken } from "./components/api/axiosInstance";
-import NewsPage from "./components/pages/NewsPage";
-import Account from "./components/pages/Account";
-import ProtectedRouter from "./components/HOCs/ProtectedRouter";
-import ErrorPage from "./components/pages/ErrorPage";
+import React, { useState, useEffect } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Layout from './components/Layout';
+import MainPage from './components/pages/MainPage';
+import SignUpPage from './components/pages/SignUpPage';
+import SignInPage from './components/pages/SignInPage';
+import axiosInstance from './components/api/axiosInstance';
+import { setAccessToken } from './components/api/axiosInstance';
+import NewsPage from './components/pages/NewsPage';
+import Account from './components/pages/Account';
+import ProtectedRouter from './components/HOCs/ProtectedRouter';
+import ErrorPage from './components/pages/ErrorPage';
 
 function App() {
-  const [user, setUser] = useState({ status: "guest", data: null });
-  // const navigate = useNavigate();
+  const [user, setUser] = useState({ status: 'fetching', data: null });
 
   useEffect(() => {
-    axiosInstance("/tokens/refresh")
+    axiosInstance('/tokens/refresh')
       .then(({ data }) => {
-        setUser({ status: "logged", data: data.user });
+        setUser({ status: 'logged', data: data.user });
         setAccessToken(data.accessToken);
       })
       .catch(() => {
-        setUser({ status: "guest", data: null });
-        setAccessToken("");
+        setUser({ status: 'guest', data: null });
+        setAccessToken('');
       });
   }, []);
 
-
-
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout user={user} setUser={setUser} />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <MainPage />,
         },
-        // {
-        //   path: "*",
-        //   element: (
-        //     <ProtectedRouter
-        //       isAllowd={user.status === "guest"}
-        //       redirect="/"
-        //     >
-        //       element: <ErrorPage />,
-        //     </ProtectedRouter>
-        //   ),
-        // },
-
         {
-          path: "*",
+          path: '*',
           element: <ErrorPage />,
         },
         {
-          path: "/news",
+          path: '/news',
           element: (
-            <ProtectedRouter
-              isAllowd={user.status === "logged"}
-              redirect="/news"
-            >
+            <ProtectedRouter isAllowd={user.status === 'logged'} redirect='/'>
               <NewsPage user={user} />
             </ProtectedRouter>
           ),
         },
         {
-          path: "/account",
+          path: '/account',
           element: (
-            <ProtectedRouter
-              isAllowd={user.status === "logged"}
-              redirect="/"
-            >
+            <ProtectedRouter isAllowd={user.status === 'logged'} redirect='/'>
               <Account user={user} />
             </ProtectedRouter>
           ),
         },
         {
-          path: "/auth/signup",
+          path: '/auth/signup',
           element: <SignUpPage setUser={setUser} />,
         },
         {
-          path: "/auth/signin",
+          path: '/auth/signin',
           element: <SignInPage setUser={setUser} />,
         },
       ],
     },
   ]);
+
   return <RouterProvider router={router} />;
 }
 

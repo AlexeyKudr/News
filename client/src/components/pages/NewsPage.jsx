@@ -14,12 +14,12 @@ export default function NewsPage({ user }) {
     const fetchNews = async () => {
       try {
         const response = await axiosInstance.get('/news');
-        setCards(response.data); // Устанавливаем все новости как изначальные результаты
+        setCards(response.data);
       } catch (error) {
         console.error('Error fetching news:', error);
       }
     };
-    fetchNews(); // Вызываем функцию загрузки новостей при загрузке компонента
+    fetchNews();
   }, []);
 
   useEffect(() => {

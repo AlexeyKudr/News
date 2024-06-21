@@ -30,27 +30,15 @@ export default function NavBar({ user, setUser }) {
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
-        {user.data ? (
-          <Navbar.Brand href="/news" onClick={handleLogoClick}>
-            <img
-              src="./../../public/logo.png"
-              width="auto"
-              height="50"
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
-            />
-          </Navbar.Brand>
-        ) : (
-          <Navbar.Brand href="/" onClick={handleLogoClick}>
-            <img
-              src="./../../public/logo.png"
-              width="auto"
-              height="50"
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
-            />
-          </Navbar.Brand>
-        )}
+        <Navbar.Brand onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <img
+            src="./../../public/logo.png"
+            width="auto"
+            height="50"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
+        </Navbar.Brand>
         <Nav className="me-auto">
           {user.data && (
             <>

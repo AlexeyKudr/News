@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import SavedNewsWrapper from "../ui/SavedNewsWrapper";
 import axiosInstance from "../api/axiosInstance";
 
-export default function Account() {
+export default function Account({user}) {
   const [savedNews, setSavedNews] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Account() {
     <Row className="justify-content-center">
       <Col className="text-center">
         <h2 style={{ color: "#00336c", marginTop: '35px', marginBottom: '35px' }}>Избранные новости</h2>
-        <SavedNewsWrapper savedNews={savedNews} handleDelete={handleDelete} />
+        <SavedNewsWrapper savedNews={savedNews} handleDelete={handleDelete} user={user}/>
       </Col>
     </Row>
   );
