@@ -99,7 +99,7 @@ export default function NavBar({ user, setUser }) {
             </Dropdown.Menu>
           </Dropdown>
           <span className="nav-link">
-            Привет, {user.data ? user.data.name : "гость"}
+            {user.data ? user.data.name : "Гость"}
           </span>
         </Nav>
       </Container>

@@ -9,7 +9,7 @@ authRouter.post('/signup', async (req, res) => {
   const { email, name, password } = req.body;
 
   if (!email || !name || !password) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    return res.status(400).json({ error: 'Заполните все поля' });
   }
 
   try {
@@ -38,7 +38,7 @@ authRouter.post('/signup', async (req, res) => {
 authRouter.post('/signin', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    return res.status(400).json({ error: 'Заполните все поля' });
   }
 
   try {

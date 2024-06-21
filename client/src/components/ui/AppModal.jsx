@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
 export default function AppModal({ title, children, buttonText }) {
@@ -14,9 +14,15 @@ export default function AppModal({ title, children, buttonText }) {
     }
   `;
 
+  const moreDetailsButtonStyle = {
+    backgroundColor: "#00336c", 
+    borderColor: "#00336c", 
+    color: "#FFFFFF"
+  };
+
   return (
     <>
-      <Button variant="primary" className="mb-2" onClick={handleShow}>
+      <Button style={{ ...moreDetailsButtonStyle, marginTop: "10px" }} variant="primary" onClick={handleShow}>
         {buttonText}
       </Button>
 
@@ -25,9 +31,10 @@ export default function AppModal({ title, children, buttonText }) {
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{children}</Modal.Body>
+        <Modal.Body style={{ lineHeight: "2", fontSize: "18px" }}>
+          {children}
+        </Modal.Body>
       </Modal>
     </>
   );
 }
-
