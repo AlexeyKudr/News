@@ -34,7 +34,7 @@ function App() {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target));
     if (!formData.email || !formData.password || !formData.name) {
-      return alert("Missing required fields");
+      return alert("Заполните все поля");
     }
     axiosInstance.post("/auth/signup", formData).then(({ data }) => {
       setUser({ status: "logged", data: data.user });
@@ -45,7 +45,7 @@ function App() {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target));
     if (!formData.email || !formData.password) {
-      return alert("Missing required fields");
+      return alert("Заполните все поля");
     }
     axiosInstance.post("/auth/signin", formData).then(({ data }) => {
       setUser({ status: "logged", data: data.user });
