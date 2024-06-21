@@ -5,8 +5,9 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
+import axiosInstance from "../api/axiosInstance";
 
-export default function NavBar({ user, logoutHandler }) {
+export default function NavBar({ user, setUser }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -19,12 +20,27 @@ export default function NavBar({ user, logoutHandler }) {
     }
   };
 
+  const logoutHandler = () => {
+    axiosInstance
+      .get("/auth/logout")
+      .then(() =>
+         setUser({ status: "guest", data: null }))
+      navigate("/", { replace: true });
+  };
+
+
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
-        <Navbar.Brand href="/" onClick={handleLogoClick}>
-          НП
-        </Navbar.Brand>
+        {user.data ? (
+          <Navbar.Brand href="/news" onClick={handleLogoClick}>
+            НП
+          </Navbar.Brand>
+        ) : (
+          <Navbar.Brand href="/" onClick={handleLogoClick}>
+            НП
+          </Navbar.Brand>
+        )}
         <Nav className="me-auto">
           {user.data && (
             <>
@@ -76,7 +92,9 @@ export default function NavBar({ user, logoutHandler }) {
                 </>
               )}
               {user.data && (
-                <Dropdown.Item onClick={logoutHandler}>Выйти</Dropdown.Item>
+                <Dropdown.Item onClick={logoutHandler}>
+                  Выйти
+                </Dropdown.Item>
               )}
             </Dropdown.Menu>
           </Dropdown>

@@ -8,9 +8,12 @@ import axiosInstance from "./components/api/axiosInstance";
 import { setAccessToken } from "./components/api/axiosInstance";
 import NewsPage from "./components/pages/NewsPage";
 import Account from "./components/pages/Account";
+import ProtectedRouter from "./components/HOCs/ProtectedRouter";
+import ErrorPage from "./components/pages/ErrorPage";
 
 function App() {
   const [user, setUser] = useState({ status: "guest", data: null });
+  // const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance("/tokens/refresh")
@@ -24,58 +27,50 @@ function App() {
       });
   }, []);
 
-  const logoutHandler = () => {
-    axiosInstance
-      .get("/auth/logout")
-      .then(() => setUser({ status: "guest", data: null }));
-  };
 
-  const signUpHandler = (e) => {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target));
-    if (!formData.email || !formData.password || !formData.name) {
-      return alert("Missing required fields");
-    }
-    axiosInstance.post("/auth/signup", formData).then(({ data }) => {
-      setUser({ status: "logged", data: data.user });
-    });
-  };
-
-  const signInHandler = (e) => {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target));
-    if (!formData.email || !formData.password) {
-      return alert("Missing required fields");
-    }
-    axiosInstance.post("/auth/signin", formData).then(({ data }) => {
-      setUser({ status: "logged", data: data.user });
-    });
-  };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout user={user} logoutHandler={logoutHandler} />,
+      element: <Layout user={user} setUser={setUser} />,
       children: [
         {
           path: "/",
           element: <MainPage />,
         },
         {
+          path: "*",
+          element: <ErrorPage />,
+        },
+        {
           path: "/news",
-          element: <NewsPage user={user} />,
+          element: (
+            <ProtectedRouter
+              isAllowd={user.status === "logged"}
+              redirect="/news"
+            >
+              <NewsPage user={user} />
+            </ProtectedRouter>
+          ),
         },
         {
           path: "/account",
-          element: <Account user={user} />,
+          element: (
+            <ProtectedRouter
+              isAllowd={user.status === "logged"}
+              redirect="/"
+            >
+              <Account user={user} />
+            </ProtectedRouter>
+          ),
         },
         {
           path: "/auth/signup",
-          element: <SignUpPage signUpHandler={signUpHandler} />,
+          element: <SignUpPage setUser={setUser} />,
         },
         {
           path: "/auth/signin",
-          element: <SignInPage signInHandler={signInHandler} />,
+          element: <SignInPage setUser={setUser} />,
         },
       ],
     },

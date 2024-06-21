@@ -3,8 +3,25 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
 
-export default function SignInPage({ signInHandler }) {
+export default function SignInPage({ setUser }) {
+
+  const navigate = useNavigate();
+
+  const signInHandler = (e) => {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(e.target));
+    if (!formData.email || !formData.password) {
+      return alert("Missing required fields");
+    }
+    axiosInstance.post("/auth/signin", formData).then(({ data }) => {
+      setUser({ status: "logged", data: data.user });
+      navigate("/news", { replace: true });
+    });
+  };
+
   return (
     <Row>
       <Col md={{ span: 6, offset: 3 }} className="mt-5">
