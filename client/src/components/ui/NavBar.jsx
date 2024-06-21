@@ -87,7 +87,7 @@ export default function NavBar({ user, logoutHandler }) {
             </Dropdown.Menu>
           </Dropdown>
           <span className="nav-link">
-            {user.data ? user.data.name : "гость"}
+            {user.data ? user.data.name : "Гость"}
           </span>
         </Nav>
       </Container>
