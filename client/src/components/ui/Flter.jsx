@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import { Row, Col, Form, Button } from "react-bootstrap";
 
 const SearchComponent = ({
   handleFilter,
@@ -8,12 +6,11 @@ const SearchComponent = ({
   setKeyword,
   excludeWord,
   setExcludeWord,
-  cards,
 }) => {
   return (
     <Row>
-      <Col md={{ span: 6, offset: 3 }} className="mt-5">
-        <h3 className="text-center">Поиск новостей</h3>
+      <Col md={{ span: 6, offset: 3 }} className="mt-5 mb-5">
+        <h3 className="text-center" style={{ color: "#00336c" }}>Поиск новостей</h3>
         <Form onSubmit={handleFilter}>
           <Form.Group className="mb-3">
             <Form.Label>Ключевое слово</Form.Label>
@@ -33,7 +30,13 @@ const SearchComponent = ({
               onChange={(e) => setExcludeWord(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ backgroundColor: "#00336c", border: "1px solid #00336c", width: "100%", transition: "background-color 0.3s ease" }}
+            onMouseOver={(e) => e.target.style.backgroundColor = "#00284e"}
+            onMouseOut={(e) => e.target.style.backgroundColor = "#00336c"}
+          >
             Поиск
           </Button>
         </Form>

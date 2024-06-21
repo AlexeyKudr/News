@@ -21,9 +21,9 @@ export default function Account() {
   };
 
   return (
-    <Row>
-      <Col>
-        <h2> Account page</h2>
+    <Row className="justify-content-center">
+      <Col className="text-center">
+        <h2 style={{ color: "#00336c", marginTop: '35px', marginBottom: '35px' }}>Избранные новости</h2>
         <SavedNewsWrapper savedNews={savedNews} handleDelete={handleDelete} />
       </Col>
     </Row>

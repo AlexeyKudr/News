@@ -23,7 +23,13 @@ export default function NavBar({ user, logoutHandler }) {
     <Navbar bg="light" data-bs-theme="light">
       <Container>
         <Navbar.Brand href="/" onClick={handleLogoClick}>
-          НП
+        <img
+              src="./../../public/logo.png"
+              width="auto"
+              height="50"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
         </Navbar.Brand>
         <Nav className="me-auto">
           {user.data && (
@@ -81,7 +87,7 @@ export default function NavBar({ user, logoutHandler }) {
             </Dropdown.Menu>
           </Dropdown>
           <span className="nav-link">
-            Привет, {user.data ? user.data.name : "гость"}
+            {user.data ? user.data.name : "гость"}
           </span>
         </Nav>
       </Container>

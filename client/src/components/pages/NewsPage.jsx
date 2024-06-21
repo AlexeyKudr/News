@@ -65,7 +65,6 @@ export default function NewsPage({ user }) {
 
   return (
     <>
-      <div>NewsPage</div>
       <Filter
         handleFilter={handleFilter}
         keyword={keyword}
