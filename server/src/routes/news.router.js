@@ -1,7 +1,7 @@
 
 const express = require('express')
 const { Op } = require('sequelize');
-const { News } = require('../../db/models');
+const { User, News, UserNews } = require('../../db/models');
 const { verifyAccessToken } = require('../middlewares/verifyTokens');
 const newsRouter = express.Router();
 
@@ -13,7 +13,6 @@ newsRouter.route('/').get(verifyAccessToken, async (req, res) => {
     res.status(500).send('Internal server error');
   }
 }).post(verifyAccessToken, async (req, res) => {
-  console.log(req.body);
   const { excludeWord, searchString } = req.body;
 
   try {
@@ -49,11 +48,12 @@ newsRouter.route('/').get(verifyAccessToken, async (req, res) => {
       return res.status(400).json({ message: 'id must be a number' });
     }
     try {
-      const post = await News.findByPk(req.params.id);
+      const post = await UserNews.findOne({
+        where: {userId: res.locals.user.id, newsId: req.params.id}
+      });
       await post.destroy();
       res.json({ message: 'Post deleted' });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ message: 'Server error' });
     }
   });
